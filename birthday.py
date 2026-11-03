@@ -6,7 +6,6 @@ def birthday_probability(people):
     prob = 1.0
     for i in range(people):
         prob = prob * (365 - i) / 365
-
     return 1.0 - prob
 
 def simulate_birthday(people, trials):
@@ -23,10 +22,10 @@ def simulate_birthday(people, trials):
 if __name__ == "__main__":
     for p in range(5, 61, 5):
         exact = birthday_probability(p)
-        sim = simulate_birthday(p, 100000)
+        sim = simulate_birthday(p, 10000)
         print(p, exact, sim)
 
-        for p in range(1, 100):
+        for p in range(1, 366):
             if birthday_probability(p) > 0.5:
                 print(p)
                 break
