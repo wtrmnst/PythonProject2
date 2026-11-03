@@ -2,9 +2,9 @@ class Account:
     def __init__(self, number, owner, balance=0):
         if balance<0:
             raise ValueError("Начальный остаток отрицательный.")
-            self.number = number
-            self.owner = owner
-            self.balance = balance
+        self.number = number
+        self.owner = owner
+        self.balance = balance
         
     def deposit(self, amount):
         if amount<=0:
@@ -19,4 +19,4 @@ class Account:
         self.balance -= amount
         
     def __repr__(self):
-        return f"Account('{self.number}', '{self.owner}', self.balance)"
+        return f"Account('{self.number}', '{self.owner}', {self.balance})"
