@@ -1,0 +1,69 @@
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self._grades = {}
+
+    def add_grade(self, subject, grade):
+        if grade not in (2, 3, 4, 5):
+            raise ValueError()
+        if subject not in self._grades:
+            self._grades[subject] = []
+        self._grades[subject].append(grade)
+
+    def average(self, subject=None):
+        if subject is not None:
+            if subject not in self._grades:
+                raise KeyError()
+            return sum(self._grades[subject]) / len(self._grades[subject])
+        
+        total_sum = 0
+        total_count = 0
+        for grades_list in self._grades.values():
+            total_sum += sum(grades_list)
+            total_count += len(grades_list)
+            
+        return total_sum / total_count if total_count > 0 else 0
+
+    def subjects(self):
+        return sorted(list(self._grades.keys()))
+
+    def debts(self):
+        bad_subjects = []
+        for subj in self._grades:
+            if self.average(subj) < 3.0:
+                bad_subjects.append(subj)
+        return sorted(bad_subjects)
+
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            return NotImplemented
+        return self.average() < other.average()
+
+    def __repr__(self):
+        return f"Student('{self.name}', {self.average():.2f})"
+
+
+class Group:
+    def __init__(self, name):
+        self.name = name
+        self._students = []
+
+    def add(self, student):
+        if not isinstance(student, Student):
+            raise TypeError()
+        if any(s.name == student.name for s in self._students):
+            raise ValueError()
+        self._students.append(student)
+
+    def __len__(self):
+        return len(self._students)
+
+    def __contains__(self, student_name):
+        return any(s.name == student_name for s in self._students)
+
+    def ranking(self):
+        return sorted(self._students, key=lambda s: (-s.average(), s.name))
+
+    def with_debts(self):
+        debtors = [s.name for s in self._students if len(s.debts()) > 0]
+        return sorted(debtors)
