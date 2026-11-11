@@ -25,6 +25,7 @@ class Account:
     def __repr__(self):
         return f"Account('{self.number}', '{self.owner}', {self._balance})"
 
+
 class SavingsAccount(Account):
     def __init__(self, number, owner, balance=0, rate=0.05):
         super().__init__(number, owner, balance)
@@ -34,7 +35,8 @@ class SavingsAccount(Account):
         self._balance += self._balance * self.rate
 
     def __repr__(self):
-        return f"SavingsAccount('{self.number}', '{self.owner}', {self._balance}, {self.rate})"
+        return f"SavingsAccount('{self.number}', '{self.owner}', {float(self._balance)}, {self.rate})"
+
 
 class CheckingAccount(Account):
     def __init__(self, number, owner, balance=0, overdraft=0):
