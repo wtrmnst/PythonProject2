@@ -40,11 +40,13 @@ class Book:
     def __repr__(self):
         return f"Book('{self.title}', '{self.author}', '{self.isbn}', {self.year}, {self.pages})"
 
+
 class Reader:
     def __init__(self, name):
         self.name = name
         self.books = []
         self.pages_read = 0
+
 
 class Library:
     def __init__(self):
@@ -65,7 +67,7 @@ class Library:
     def lend(self, isbn, reader):
         book = self.find_by_isbn(isbn)
         if book is None:
-            raise ValueError("Книги с таким ISBN нет в фонде")
+            raise KeyError("Книги с таким ISBN нет в фонде")
         if not book.is_available:
             raise ValueError("Книга уже выдана")
         book.borrow()
