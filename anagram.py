@@ -1,7 +1,4 @@
+from collections import Counter
+
 def is_anagram(s1, s2):
-    if len(s1) != len(s2):
-        return False
-    if len(s1) == len(s2):
-        return True
-    else:
-        None 
+    return Counter(s1) == Counter(s2)
